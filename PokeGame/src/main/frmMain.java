@@ -26,15 +26,71 @@ public class frmMain extends javax.swing.JFrame {
     Pokedex dexter = new Pokedex();
     PokeViewer visor = new PokeViewer();
     Reloj horaActual = new Reloj();
-
+    Hilo hilo1 = new Hilo();
+    Hilo hilo2 = new Hilo();
+    Hilo hilo3 = new Hilo();
+    Hilo hilo4 = new Hilo();
     /**
      * Creates new form frmMain
      */
     public frmMain() {
         initComponents();
         horaActual.start();
+        hilo1.start();
+        hilo2.start();
+        hilo3.start();
+        hilo4.start();
+        hilo1.run = false;
+        hilo2.run = false;
+        hilo3.run = false;
+        hilo4.run = false;
     }
+    private class Hilo extends Thread{
+        private boolean run = false;
+        
+        public void starRunning(){
+            run = true;
+        }
+        
+        public void stopRunning(){
+            run = false;
+        }
+        
+        public void run(){
+            try {
+            whoIsThatPokemon = dexter.buscarPokemon();
+            btnPokemon1.setText(whoIsThatPokemon.getName());
+            visor.mostrarSprites();
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            try {
+            whoIsThatPokemon = dexter.buscarPokemon();
+            btnPokemon2.setText(whoIsThatPokemon.getName());
+            visor.mostrarSprites();
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            try {
+            whoIsThatPokemon = dexter.buscarPokemon();
+            btnPokemon3.setText(whoIsThatPokemon.getName());
+            visor.mostrarSprites();
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            try {
+            whoIsThatPokemon = dexter.buscarPokemon();
+            btnPokemon4.setText(whoIsThatPokemon.getName());
+            visor.mostrarSprites();
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        }
     
+    
+    
+    }
     public class PokeViewer {
         public void mostrarSprites() {
             if (whoIsThatPokemon != null){
@@ -91,12 +147,32 @@ public class frmMain extends javax.swing.JFrame {
         lblSprite.setText("?");
 
         btnPokemon1.setText("???");
+        btnPokemon1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokemon1ActionPerformed(evt);
+            }
+        });
 
         btnPokemon2.setText("???");
+        btnPokemon2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokemon2ActionPerformed(evt);
+            }
+        });
 
         btnPokemon3.setText("???");
+        btnPokemon3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokemon3ActionPerformed(evt);
+            }
+        });
 
         btnPokemon4.setText("???");
+        btnPokemon4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokemon4ActionPerformed(evt);
+            }
+        });
 
         btnJugar.setText("Jugar");
         btnJugar.addActionListener(new java.awt.event.ActionListener() {
@@ -166,18 +242,46 @@ public class frmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
-        try {
-            whoIsThatPokemon = dexter.buscarPokemon();
-            btnPokemon1.setText(whoIsThatPokemon.getName());
-            btnPokemon2.setText(whoIsThatPokemon.getName());
-            btnPokemon3.setText(whoIsThatPokemon.getName());
-            btnPokemon4.setText(whoIsThatPokemon.getName());
-            visor.mostrarSprites();
-        } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        hilo1.starRunning();
+        hilo2.starRunning();
+        hilo3.starRunning();
+        hilo4.starRunning();
         btnJugar.setText("Jugar de nuevo");
     }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void btnPokemon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokemon1ActionPerformed
+        // TODO add your handling code here:
+        hilo1.stopRunning();
+        hilo2.stopRunning();
+        hilo3.stopRunning();
+        hilo4.stopRunning();
+        
+    }//GEN-LAST:event_btnPokemon1ActionPerformed
+
+    private void btnPokemon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokemon4ActionPerformed
+        // TODO add your handling code here:
+        hilo1.stopRunning();
+        hilo2.stopRunning();
+        hilo3.stopRunning();
+        hilo4.stopRunning();
+    }//GEN-LAST:event_btnPokemon4ActionPerformed
+
+    private void btnPokemon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokemon2ActionPerformed
+        // TODO add your handling code here:
+        hilo1.stopRunning();
+        hilo2.stopRunning();
+        hilo3.stopRunning();
+        hilo4.stopRunning();
+    }//GEN-LAST:event_btnPokemon2ActionPerformed
+
+    private void btnPokemon3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokemon3ActionPerformed
+        // TODO add your handling code here:
+        hilo1.stopRunning();
+        hilo2.stopRunning();
+        hilo3.stopRunning();
+        hilo4.stopRunning();
+    }//GEN-LAST:event_btnPokemon3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,7 +349,7 @@ public class frmMain extends javax.swing.JFrame {
             }
         }
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnPokemon1;
